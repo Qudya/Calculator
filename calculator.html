@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- styles -->
+    <style>
+      body {
+        background: #292929;
+      }
+      .calculator {
+        width: 250px;
+        background: #212121;
+        border-radius: 8px;
+        height: 420px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 8px;
+      }
+      .calc__inner {
+        height: 100%;
+        width: 100%;
+      }
+      .calc__upper {
+        height: 30%;
+        width: 100%;
+        background: white;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        position: relative;
+      }
+      #res {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+      }
+      .calc__lower {
+        height: calc(70% - 10px);
+        width: 100%;
+        background: yellow;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 5px;
+        padding: 5px 0 5px 0;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+      .span {
+        color: white;
+        font-size: 20px;
+      }
+      .elem {
+        background: #000;
+        width: calc(25% - 5px);
+        border: none;
+        outline: none;
+        border-radius: 5px;
+      }
+      .elem:active {
+        transform: translateY(-1px);
+      }
+      .elem:hover {
+        background: #1b1b1b;
+      }
+      .elem:nth-child(17) {
+        background: red;
+        width: calc(50% - 5px);
+      }
+      .elem:nth-child(19) {
+        background: green;
+      }
+    </style>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="First project - Calculator" />
+    <title>Calculator</title>
+  </head>
+  <body>
+    <div class="calculator">
+      <div class="calc__inner">
+        <div class="calc__upper"><span id="res"></span></div>
+        <div class="calc__lower"></div>
+      </div>
+    </div>
+
+    <script>
+      const resSpan = document.getElementById("res");
+      const calculator = [
+        ["C", "+/-", "%", "/"],
+        ["7", "8", "9", "*"],
+        ["4", "5", "6", "+"],
+        ["1", "2", "3", "-"],
+        ["0", ".", "="],
+      ];
+      const calcLower = document.querySelector(".calc__lower");
+      calculator.forEach((el) => {
+        el.forEach((el2) => {
+          const element = document.createElement("div");
+          const elWrapper = document.createElement("button");
+          element.appendChild(document.createTextNode(el2));
+          elWrapper.classList.add("elem");
+          element.classList.add("span");
+          elWrapper.append(element);
+          calcLower.append(elWrapper);
+        });
+      });
+
+      const elements = document.querySelectorAll(".elem");
+      const elemArray = Array.from(elements);
+      elemArray.forEach((el) => {
+        el.addEventListener("click", () => {
+          resSpan.innerHTML += el.textContent;
+
+          if (el.textContent === "C") {
+            resSpan.innerHTML = "";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
